@@ -4,9 +4,147 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_Work_3"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Lab Work 3" Height="450" Width="800">
+    <Window.Resources>
+        <GridLength x:Key="MainOperGridWith">5
+        </GridLength>
+
+        <Style x:Key="MainOperGridWithBorderStyle" TargetType="Rectangle">
+            <Style.Setters>
+                <Setter Property="Fill" Value="Black"/>
+            </Style.Setters>
+        </Style>
+
+        <Style x:Key="VerticalGridSplitter" TargetType="GridSplitter">
+            <Style.Setters>
+                <Setter Property="Background" Value="Black"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="Width" Value="6"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation From="Black"
+                                                To="Orange"
+                                                Duration="0:0:0:0.2"
+                                                Storyboard.TargetProperty="Background.Color"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation From="Orange"
+                                                To="Black"
+                                                Storyboard.TargetProperty="Background.Color"
+                                                Duration="0:0:0:0.2"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DisplayTestBox" TargetType="TextBox">
+            <Style.Setters>
+                <Setter Property="AcceptsReturn" Value="True"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
+            </Style.Setters>
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Menu x:Name="Main_Menu" Grid.Row="0">
+            <MenuItem Header="Файл"
+                      Height="{Binding ElementName=Main_Menu, 
+                Path=ActualHeight, Mode=OneWay}"
+                      Width="50">
+                <MenuItem Header="Відкрити файл з числами"
+                          Height="{Binding ElementName=Main_Menu, 
+                Path=ActualHeight, Mode=OneWay}"
+                          />
+                <MenuItem Header="Зберегти результати"
+                          Height="{Binding ElementName=Main_Menu, 
+                Path=ActualHeight, Mode=OneWay}"
+                          />
+            </MenuItem>
+
+            <MenuItem Header="Про завдання"
+                      Height="{Binding ElementName=Main_Menu, 
+                Path=ActualHeight, Mode=OneWay}"
+                      Width="100"
+                      x:Name="About" Click="About_Click"/>
+        </Menu>
+
+        <Grid Grid.Row="1" x:Name="MainOperGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{StaticResource MainOperGridWith}"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="{StaticResource MainOperGridWith}"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{StaticResource MainOperGridWith}"/>
+                <RowDefinition/>
+                <RowDefinition Height="{StaticResource MainOperGridWith}"/>
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Row="0" Grid.ColumnSpan="3"
+                       Style="{StaticResource MainOperGridWithBorderStyle}"/>
+            <Rectangle Grid.Row="0" Grid.RowSpan="3"
+                       Style="{StaticResource MainOperGridWithBorderStyle}"/>
+            <Rectangle Grid.Row="2" Grid.ColumnSpan="3"
+                       Style="{StaticResource MainOperGridWithBorderStyle}"/>
+            <Rectangle Grid.Column="2" Grid.RowSpan="3"
+                       Style="{StaticResource MainOperGridWithBorderStyle}"/>
+
+            <Grid Grid.Row="1" Grid.Column="1" 
+                  x:Name="Splitters_Grid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="216*"/>
+                </Grid.ColumnDefinitions>
+                <GridSplitter Grid.Column="1" 
+                              Style="{StaticResource VerticalGridSplitter}"/>
+                <Grid x:Name="Left" Grid.Column="0">
+                    <TextBox x:Name="DownloadResultTxtBx" 
+                             Style="{StaticResource DisplayTestBox}"
+                             />
+                </Grid>
+
+                <Grid x:Name="Right" Grid.Column="2">
+                    <TextBox x:Name="ShowResultResultTxtBx" 
+                             Style="{StaticResource DisplayTestBox}"
+                             />
+                </Grid>
+
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Calculate"
+                    Grid.Column="1"
+                    Content="Порахувати"
+                    />
+        </Grid>
+
     </Grid>
 </Window>
