@@ -74,12 +74,14 @@
                 Path=ActualHeight, Mode=OneWay}"
                       Width="50">
                 <MenuItem Header="Відкрити файл з числами"
+                          x:Name="OpenInputFileButton"
                           Height="{Binding ElementName=Main_Menu, 
-                Path=ActualHeight, Mode=OneWay}"
+                Path=ActualHeight, Mode=OneWay}" Click="OpenInputFileButton_Click" 
                           />
                 <MenuItem Header="Зберегти результати"
+                          x:Name="SaveResultsButton"
                           Height="{Binding ElementName=Main_Menu, 
-                Path=ActualHeight, Mode=OneWay}"
+                Path=ActualHeight, Mode=OneWay}" Click="SaveResultsButton_Click"
                           />
             </MenuItem>
 
@@ -122,12 +124,14 @@
                 <Grid x:Name="Left" Grid.Column="0">
                     <TextBox x:Name="DownloadResultTxtBx" 
                              Style="{StaticResource DisplayTestBox}"
+                             IsEnabled="False"
                              />
                 </Grid>
 
                 <Grid x:Name="Right" Grid.Column="2">
-                    <TextBox x:Name="ShowResultResultTxtBx" 
+                    <TextBox x:Name="ShowResultTxtBx" 
                              Style="{StaticResource DisplayTestBox}"
+                             IsEnabled="False"
                              />
                 </Grid>
 
@@ -142,7 +146,7 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="Calculate"
                     Grid.Column="1"
-                    Content="Порахувати"
+                    Content="Порахувати" Click="Calculate_Click"
                     />
         </Grid>
 
